@@ -1,0 +1,64 @@
+{% extends "base.html" %} {% block content %}
+<div
+  style="
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: #f4f4f4;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 900px;
+    margin: 0 auto;
+  "
+>
+  <h2 style="color: #2c3e50; margin-bottom: 20px">
+    Items Approved by Principal
+  </h2>
+
+  <table
+    style="
+      width: 100%;
+      border-collapse: collapse;
+      background-color: #ffffff;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      overflow: hidden;
+    "
+  >
+    <thead>
+      <tr style="background-color: #3498db; color: white; text-align: left">
+        <th style="padding: 12px; border-bottom: 1px solid #ddd">Item Name</th>
+        <th style="padding: 12px; border-bottom: 1px solid #ddd">Quantity</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for item in items %}
+      <tr style="background-color: {% cycle '#f9f9f9' '#ffffff' %};">
+        <td style="padding: 12px; border-bottom: 1px solid #ddd">
+          {{ item.item_name }}
+        </td>
+        <td style="padding: 12px; border-bottom: 1px solid #ddd">
+          {{ item.quantity }}
+        </td>
+      </tr>
+      {% empty %}
+      <tr>
+        <td
+          colspan="2"
+          style="
+            padding: 12px;
+            text-align: center;
+            color: #888;
+            font-style: italic;
+          "
+        >
+          No items approved by the principal.
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

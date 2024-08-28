@@ -1,0 +1,80 @@
+<!-- gst_app/templates/gst_app/principal_dashboard.html -->
+
+{% extends "base.html" %} {% block content %}
+<div
+  style="
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  "
+>
+  <h2 style="color: #2c3e50; margin-bottom: 20px">Items Submitted by HOD</h2>
+
+  <table
+    style="
+      width: 80%;
+      border-collapse: collapse;
+      background-color: #ecf0f1;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    "
+  >
+    <thead>
+      <tr style="background-color: #34495e; color: white; text-align: left">
+        <th style="padding: 12px; border-bottom: 1px solid #ddd">Item Name</th>
+        <th style="padding: 12px; border-bottom: 1px solid #ddd">Quantity</th>
+        <th style="padding: 12px; border-bottom: 1px solid #ddd">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for item in items %}
+      <tr style="background-color: {% cycle '#f2f2f2' '#ffffff' %};">
+        <td style="padding: 12px; border-bottom: 1px solid #ddd">
+          {{ item.item_name }}
+        </td>
+        <td style="padding: 12px; border-bottom: 1px solid #ddd">
+          {{ item.quantity }}
+        </td>
+        <td style="padding: 12px; border-bottom: 1px solid #ddd">
+          <form method="POST" action="{% url 'principal_dashboard' %}">
+            {% csrf_token %}
+            <input type="hidden" name="item_id" value="{{ item.id }}" />
+            <button
+              type="submit"
+              name="action"
+              value="approve"
+              style="
+                padding: 8px 16px;
+                background-color: #27ae60;
+                color: white;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+                margin-right: 8px;
+              "
+            >
+              Approve
+            </button>
+            <button
+              type="submit"
+              name="action"
+              value="disapprove"
+              style="
+                padding: 8px 16px;
+                background-color: #e74c3c;
+                color: white;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+              "
+            >
+              Disapprove
+            </button>
+          </form>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}
